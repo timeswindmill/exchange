@@ -7,6 +7,11 @@ import instruments.Instrument;
 import instruments.StandardInstrument;
 import machine.Machine;
 import order.*;
+import order.Side;
+import quickfix.FieldNotFound;
+import quickfix.Message;
+import quickfix.field.*;
+import util.Log;
 
 import java.util.Map;
 
@@ -53,7 +58,7 @@ public class SimpleFormatOrderTranslator {
 
 
     private static StandardOrder createSimpleOrder(String[] tokens) {
-        final Map<Long, Client> clientMap = Machine.INSTANCE.getClientMap();
+        final Map<String, Client> clientMap = Machine.INSTANCE.getClientMap();
         final Map<String, Instrument> instrumentMap = Machine.INSTANCE.getInstrumentMap();
         Client client = clientMap.get(Long.parseLong(tokens[CLIENTFIELDINDEX]));
         // find the instrument
@@ -62,6 +67,48 @@ public class SimpleFormatOrderTranslator {
                 Side.valueOf(tokens[SIDEFIELDINDEX]), Double.parseDouble(tokens[PRICEFIELDINDEX]), Integer.parseInt(tokens[QUANTITYFIELDINDEX]));
         return newOrder;
 
+    }
+
+    public static StandardOrder createSimpleOrder(Message fixMessage) {
+        final Map<String, Client> clientMap = Machine.INSTANCE.getClientMap();
+        final Map<String, Instrument> instrumentMap = Machine.INSTANCE.getInstrumentMap();
+
+        try {
+            String senderCompId = fixMessage.getHeader().getString(SenderCompID.FIELD);
+            String targetCompId = fixMessage.getHeader().getString(TargetCompID.FIELD);
+            //TODO use targetcompid ?
+            String clOrdId = fixMessage.getString(ClOrdID.FIELD);
+            String symbol = fixMessage.getString(Symbol.FIELD);
+            // create side
+            char sideVal = fixMessage.getChar(quickfix.field.Side.FIELD);
+            order.Side side = order.Side.BUY;
+            switch (sideVal) {
+                case quickfix.field.Side.BUY:
+                    side = order.Side.BUY;
+                    break;
+                case quickfix.field.Side.SELL:
+                    side = order.Side.SELL;
+                    break;
+                //TODO other vals from spec
+            }
+
+            char ordTypeChar = fixMessage.getChar(OrdType.FIELD);
+            double price = 0;
+            if (ordTypeChar == OrdType.LIMIT) {
+                price = fixMessage.getDouble(Price.FIELD);
+            }
+            double qty = fixMessage.getDouble(OrderQty.FIELD);
+            Client client = clientMap.get(senderCompId);
+            Instrument instrument = instrumentMap.get(symbol);
+
+            StandardOrder order = createStandardOrder(clOrdId, client, instrument, side, price, (int) qty);
+            return order;
+
+        } catch (
+                FieldNotFound fieldNotFound) {
+            Log.INSTANCE.logError("Field Not Found");
+        }
+        return null;
     }
 
     private static String[] tokenizeInput(String input) {

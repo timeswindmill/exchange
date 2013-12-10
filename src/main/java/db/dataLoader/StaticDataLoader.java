@@ -48,7 +48,7 @@ public class StaticDataLoader {
 
     }
 
-    public static Map<Long, Client> loadClients() throws SQLException {
+    public static Map<String, Client> loadClients() throws SQLException {
         if (Machine.INSTANCE.getRunConfig() == RunConfig.UNITTEST) {
             return loadTestClients();
         }
@@ -58,14 +58,14 @@ public class StaticDataLoader {
 
         String sql = "SELECT *  FROM Clients";
         ResultSet rs = stmt.executeQuery(sql);
-        Map<Long, Client> clientMap = new HashMap<>();
+        Map<String, Client> clientMap = new HashMap<>();
 
         while (rs.next()) {
             //Retrieve by column name
             int ID = rs.getInt("ID");
             String name = rs.getString("ClientName");
             Client client = new StandardClient(ID, name);
-            clientMap.put(new Long(ID), client);
+            clientMap.put(name, client);
         }
         rs.close();
 
@@ -84,10 +84,12 @@ public class StaticDataLoader {
         return instrumentMap;
     }
 
-    private static Map<Long, Client> loadTestClients() {
-        Map<Long, Client> clientMap = new HashMap<>();
-        clientMap.put(1L, new StandardClient(1, "Client 1"));
-        clientMap.put(2L, new StandardClient(2, "Client 2"));
+    private static Map<String, Client> loadTestClients() {
+        Map<String, Client> clientMap = new HashMap<>();
+        clientMap.put("CLIENT1", new StandardClient(1, "Client 1"));
+        clientMap.put("CLIENT2", new StandardClient(2, "Client 2"));
+        clientMap.put("CLIENT3", new StandardClient(2, "Client 3"));
+        clientMap.put("EX1", new StandardClient(2, "EX1"));
 
         return clientMap;
 

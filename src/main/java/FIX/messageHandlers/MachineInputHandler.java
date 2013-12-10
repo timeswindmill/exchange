@@ -4,6 +4,7 @@ import machine.Machine;
 import message.*;
 import order.StandardOrder;
 import quickfix.*;
+import quickfix.field.MsgType;
 import util.Log;
 
 public class MachineInputHandler extends FixMessageHandler {
@@ -47,23 +48,25 @@ public class MachineInputHandler extends FixMessageHandler {
 
 
     private GeneralMessage createMessageFromFix(Message fixMessage) {
+
+
         GeneralMessage newMessage = null;
         if (fixMessage.isAdmin()) {
             return null;
         }
         String messageType = "";
         try {
-            messageType = fixMessage.getString(35);
+            messageType = fixMessage.getHeader().getString(MsgType.FIELD);
         } catch (FieldNotFound fieldNotFound) {
             Log.INSTANCE.logError("Message Type Field not found");
             return null;
         }
         switch (messageType) {
-            case "0":
+            case MsgType.HEARTBEAT:
                 newMessage = null;
                 break;
 
-            case "D":
+            case MsgType.ORDER_SINGLE:
                 newMessage = createOrderMessageFromFix(fixMessage);
                 break;
             //TODO  more message types
@@ -74,34 +77,12 @@ public class MachineInputHandler extends FixMessageHandler {
     }
 
     private GeneralMessage<StandardOrder> createOrderMessageFromFix(Message fixMessage) {
-
-        String CLordID = null;
-        try {
-            CLordID = fixMessage.getString(11);
-            String RIC = fixMessage.getString(55);
-            String Side = fixMessage.getString(54);
-            String Price = fixMessage.getString(99);
-            String Quantity = fixMessage.getString(38);
-            String Instructions = "None";
-            String ClientID = "1";
-
-            Address address = Address.createAddress("127.0.0.1", null);
-            RoutingDetails routingDetails = new RoutingDetails(null, address);
-            //TODO need to tue Address to sender comp ID to allow return
-            StringBuilder sb = new StringBuilder();
-            sb.append("EX1|").append(CLordID).append("|").append(ClientID).append("|").append(RIC).append("|").append(Side).append("|");
-            sb.append(Price).append("|").append(Quantity).append("|").append(Instructions);
-
-            // private final String binaryMessage = "Exchange|ClordID|ClientID|RIC|Side|Price|Quantity|Instructions";
-
-            StandardOrder newOrder = SimpleFormatOrderTranslator.createSimpleOrder(sb.toString());
-            GeneralMessage<StandardOrder> newMessage = new SimpleOrderMessage(newOrder, routingDetails);
-            return newMessage;
-
-        } catch (FieldNotFound fieldNotFound) {
-            Log.INSTANCE.logError(" Field not found");
-            return null;
-        }
+        Address address = Address.createAddress("127.0.0.1", null);
+        RoutingDetails routingDetails = new RoutingDetails(null, address);
+        //TODO need to tue Address to sender comp ID to allow return
+        StandardOrder newOrder = SimpleFormatOrderTranslator.createSimpleOrder(fixMessage);
+        GeneralMessage<StandardOrder> newMessage = new SimpleOrderMessage(newOrder, routingDetails);
+        return newMessage;
 
     }
 

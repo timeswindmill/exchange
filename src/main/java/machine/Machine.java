@@ -28,7 +28,7 @@ public enum Machine {
     private MachineConfig config;
     private Map<String, Address> machineMap;
     private Map<String, Instrument> instruments;
-    private Map<Long, Client> clients;
+    private Map<String, Client> clients;
     private RunConfig runConfig = RunConfig.UNITTEST;
     public boolean initialised = false;
 
@@ -83,7 +83,7 @@ public enum Machine {
     }
 
 
-    public Map<Long, Client> getClientMap() {
+    public Map<String, Client> getClientMap() {
         return clients;
     }
 
