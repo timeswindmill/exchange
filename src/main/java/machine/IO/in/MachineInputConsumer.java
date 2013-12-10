@@ -5,7 +5,7 @@ import dataStructures.jobExchanger.DataElement;
 import dataStructures.jobExchanger.StandardConsumer;
 import exchange.Exchange;
 import message.Address;
-import message.Message;
+import message.GeneralMessage;
 import message.RoutingDetails;
 import message.SimpleFormatOrderTranslator;
 import order.StandardOrder;
@@ -25,7 +25,7 @@ public class MachineInputConsumer extends StandardConsumer {
     private void routeInputToExchange(String message) {
         //TODO allow sending to other machines
         // convert input to message to find routing
-        Message<StandardOrder> inputMessage = SimpleFormatOrderTranslator.createOrderMessageFromString(message);
+        GeneralMessage<StandardOrder> inputMessage = SimpleFormatOrderTranslator.createOrderMessageFromString(message);
         RoutingDetails routingDetails = inputMessage.getRoutingDetails();
         Address address = routingDetails.getDestinationAddress();
         String exchangeName = address.getExchangeName();

@@ -19,4 +19,9 @@ public class StandardClient implements Client {
     public String getClientName() {
         return clientName;
     }
+
+
+    public String toString() {
+        return getClientName();
+    }
 }

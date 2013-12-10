@@ -8,7 +8,7 @@ import instruments.Instrument;
 import machine.IO.MachineSocket;
 import machine.IO.in.MachineInput;
 import message.Address;
-import message.Message;
+import message.GeneralMessage;
 import util.Log;
 
 import java.io.IOException;
@@ -92,11 +92,11 @@ public enum Machine {
     }
 
 
-    public boolean sendMessage(Message message) {
+    public boolean sendMessage(GeneralMessage message) {
         return false;
     }
 
-    public void receiveMessage(Message message) {
+    public void receiveMessage(GeneralMessage message) {
         machineInput.acceptMessage(message);
     }
 

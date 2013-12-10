@@ -1,0 +1,23 @@
+# default settings for sessions
+  [DEFAULT]
+ # ConnectionType=initiator
+ # ReconnectInterval=60
+ # SenderCompID=TWX
+ # SocketAcceptPort=15515
+ # SocketAcceptAddress=127.0.0.1
+ # SocketAcceptProtocol=TCP
+
+   FileStorePath=/home/laurence/temp
+   FileLogPath=/home/laurence/temp
+   DataDictionary=/home/laurence/Apps/quickfixj/etc/FIX42.xml
+   SocketAcceptPort=9876
+   BeginString=FIX.4.2
+
+   [session]
+   SenderCompID=EX1
+   TargetCompID=CLIENT1
+   ConnectionType=acceptor
+   StartTime=00:00:00
+   EndTime=00:00:00
+
+

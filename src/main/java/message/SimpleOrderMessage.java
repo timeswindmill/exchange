@@ -2,7 +2,7 @@ package message;
 
 import order.StandardOrder;
 
-public class SimpleOrderMessage implements Message<StandardOrder> {
+public class SimpleOrderMessage implements GeneralMessage<StandardOrder> {
 
     private final StandardOrder order;
     private final RoutingDetails routingDetails;

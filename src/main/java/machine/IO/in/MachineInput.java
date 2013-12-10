@@ -5,7 +5,7 @@ import dataStructures.jobExchanger.DataElement;
 import dataStructures.jobExchanger.Processor;
 import dataStructures.jobExchanger.StandardProcessor;
 import exchange.Exchange;
-import message.Message;
+import message.GeneralMessage;
 
 import java.util.List;
 
@@ -32,8 +32,8 @@ public class MachineInput {
     }
 
 
-    public void acceptMessage(Message message) {
-        processor.putDataElement(new DataElement<Message>(message));
+    public void acceptMessage(GeneralMessage message) {
+        processor.putDataElement(new DataElement<GeneralMessage>(message));
     }
 
 }

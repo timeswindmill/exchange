@@ -1,6 +1,6 @@
 package message;
 
-public interface Message<T> {
+public interface GeneralMessage<T> {
     public T getMessage();
 
     public RoutingDetails getRoutingDetails();
