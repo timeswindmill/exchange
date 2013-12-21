@@ -7,8 +7,8 @@
  # SocketAcceptAddress=127.0.0.1
  # SocketAcceptProtocol=TCP
 
-   FileStorePath=/home/laurence/temp
-   FileLogPath=/home/laurence/temp
+   FileStorePath=/home/laurence/temp/FixData
+   FileLogPath=/home/laurence/temp/FixData
    DataDictionary=/home/laurence/Apps/quickfixj/etc/FIX42.xml
    SocketAcceptPort=9876
    BeginString=FIX.4.2

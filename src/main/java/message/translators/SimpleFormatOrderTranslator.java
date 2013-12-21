@@ -1,4 +1,4 @@
-package message;
+package message.translators;
 
 import client.Client;
 import client.StandardClient;
@@ -6,6 +6,8 @@ import execution.ExecutionType;
 import instruments.Instrument;
 import instruments.StandardInstrument;
 import machine.Machine;
+import message.RoutingDetails;
+import message.SimpleOrderMessage;
 import order.*;
 import order.Side;
 import quickfix.FieldNotFound;
@@ -15,7 +17,7 @@ import util.Log;
 
 import java.util.Map;
 
-public class SimpleFormatOrderTranslator {
+public class SimpleFormatOrderTranslator implements Translator {
 
     private static final String DELIIMITER = "\\|";
     private static final int EXCHANGEFIELDINDEX = 0;

@@ -3,7 +3,7 @@ package agent.agent;
 
 import com.higherfrequencytrading.chronicle.Excerpt;
 import com.higherfrequencytrading.chronicle.impl.IndexedChronicle;
-import message.SimpleFormatOrderTranslator;
+import message.translators.SimpleFormatOrderTranslator;
 import util.Log;
 
 import java.io.IOException;

@@ -4,6 +4,7 @@ import client.Client;
 import execution.ExecutionInstruction;
 import execution.ExecutionType;
 import instruments.Instrument;
+import quickfix.SessionID;
 import util.IDGenerator;
 
 import java.io.Serializable;
@@ -14,7 +15,7 @@ import java.util.Set;
 public class OrderStub implements Serializable {
 
     private final OrderOrigin orderOrigin;
-
+    private final SessionID sessionID;
     private final Instrument instrument;
     private final Side side;
     private final long orderID;
@@ -28,8 +29,22 @@ public class OrderStub implements Serializable {
     private final Set<ExecutionInstruction> executionInstructions = EnumSet.noneOf(ExecutionInstruction.class);
 
 
+    public OrderStub(SessionID sessionID, OrderOrigin orderOrigin, Instrument instrument, Side side,
+                     String clientOrderID, Client client, ExecutionType executionType, int quantity) {
+        this.sessionID = sessionID;
+        this.orderOrigin = orderOrigin;
+        this.instrument = instrument;
+        this.side = side;
+        this.orderID = getNextOrderID();
+        this.clientOrderID = clientOrderID;
+        this.client = client;
+        this.executionType = executionType;
+        this.initialQuantity = quantity;
+    }
+
     public OrderStub(OrderOrigin orderOrigin, Instrument instrument, Side side,
                      String clientOrderID, Client client, ExecutionType executionType, int quantity) {
+        this.sessionID = null;
         this.orderOrigin = orderOrigin;
         this.instrument = instrument;
         this.side = side;
@@ -43,6 +58,10 @@ public class OrderStub implements Serializable {
 
     private static long getNextOrderID() {
         return IDGenerator.INSTANCE.getNextID();
+    }
+
+    public SessionID getSessionID() {
+        return sessionID;
     }
 
     public OrderOrigin getOrderOrigin() {

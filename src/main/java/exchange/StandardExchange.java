@@ -9,7 +9,7 @@ import exchange.router.StandardRouter;
 import instruments.Instrument;
 import instruments.SymbolType;
 import machine.Machine;
-import message.SimpleFormatOrderTranslator;
+import message.translators.SimpleFormatOrderTranslator;
 import order.StandardOrder;
 
 import java.util.Collection;

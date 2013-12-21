@@ -1,6 +1,6 @@
 package FIX.fixEngine;
 
-import FIX.messageHandlers.FixMessageHandler;
+import FIX.fixEngine.messageHandlers.FixMessageHandler;
 import quickfix.*;
 
 import java.io.FileInputStream;

@@ -7,7 +7,7 @@ import exchange.Exchange;
 import message.Address;
 import message.GeneralMessage;
 import message.RoutingDetails;
-import message.SimpleFormatOrderTranslator;
+import message.translators.SimpleFormatOrderTranslator;
 import order.StandardOrder;
 
 import java.util.List;

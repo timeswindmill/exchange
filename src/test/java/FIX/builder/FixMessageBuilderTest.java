@@ -2,10 +2,8 @@ package FIX.builder;
 
 import client.Client;
 import client.StandardClient;
-import execution.ExecutionType;
 import instruments.Instrument;
 import instruments.StandardInstrument;
-import order.*;
 import org.junit.Test;
 
 public class FixMessageBuilderTest {
@@ -18,12 +16,12 @@ public class FixMessageBuilderTest {
     @Test
     public void testCreateNewOrderMessage() throws Exception {
 
-
-        String clientOrderID = "12345ABC";
-        OrderStub stub = new OrderStub(OrderOrigin.ALGO, bacInstrument, Side.SELL, clientOrderID, client, ExecutionType.CONTINUOUS, 100);
-        MatchableOrder newOrder = new StandardMatchableOrder(new StandardMarketOrder(stub));
-        FixMessageBuilder fixMessageBuilder = new FixMessageBuilder();
-        System.out.println("FIX is " + fixMessageBuilder.createNewOrderMessage(newOrder.getOrder()));
+//
+//        String clientOrderID = "12345ABC";
+//        OrderStub stub = new OrderStub(OrderOrigin.ALGO, bacInstrument, Side.SELL, clientOrderID, client, ExecutionType.CONTINUOUS, 100);
+//        MatchableOrder newOrder = new StandardMatchableOrder(new StandardMarketOrder(stub));
+//        FixMessageBuilder fixMessageBuilder = new FixMessageBuilder();
+//        System.out.println("FIX is " + fixMessageBuilder.createNewOrderMessage(newOrder.getOrder()));
 
 
     }

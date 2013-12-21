@@ -1,17 +1,12 @@
 package FIX.fixEngine;
 
-public class SimpleFixEngineTest {
+public class FixExamplesTest {
 
-//    @Before
-//    public void setupMachine() {
-//        Machine.setupMachine(RunConfig.UNITTEST);
-//    }
-//
-//
-// //   @Test
+
+//    @Test
 //    public void testCreateSimpleFixEngine() throws Exception {
 //        String fileName = "/home/laurence/Work/Dev/Java/MatchingProjects/Exchange/src/main/resources/FixSettings.dat";
-//        FixMessageHandler handler = new MachineInputHandler();
+//        FixMessageHandler handler = new MessageLogToFileHandler();
 //
 //        SimpleFixEngine simpleFixEngine = SimpleFixEngine.createSimpleFixEngine(fileName, handler);
 //
@@ -19,4 +14,7 @@ public class SimpleFixEngineTest {
 //
 //
 //    }
+//
+
+
 }

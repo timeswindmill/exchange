@@ -2,6 +2,7 @@ package message;
 
 import machine.Machine;
 import machine.RunConfig;
+import message.translators.SimpleFormatOrderTranslator;
 import order.StandardOrder;
 import org.junit.Assert;
 import org.junit.Before;

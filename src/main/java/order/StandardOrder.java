@@ -4,6 +4,7 @@ import client.Client;
 import execution.ExecutionInstruction;
 import execution.ExecutionType;
 import instruments.Instrument;
+import quickfix.SessionID;
 
 import java.util.Date;
 import java.util.Set;
@@ -34,6 +35,10 @@ public abstract class StandardOrder implements Order {
         lastUpdatedTime = new Date().getTime();
     }
 
+    @Override
+    public SessionID getSessionID() {
+        return orderStub.getSessionID();
+    }
 
     @Override
     public OrderStatus getOrderStatus() {

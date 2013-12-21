@@ -4,11 +4,14 @@ import client.Client;
 import execution.ExecutionInstruction;
 import execution.ExecutionType;
 import instruments.Instrument;
+import quickfix.SessionID;
 
 import java.io.Serializable;
 import java.util.Set;
 
 public interface Order extends Serializable {
+
+    public SessionID getSessionID();
 
     public OrderType getOrderType();
 
